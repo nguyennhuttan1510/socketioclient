@@ -36,3 +36,38 @@
     transform: rotate(360deg);
   }
 }
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+.khungchat {
+  height: 300px;
+  overflow-y: auto;
+}
+.name {
+  font-size: 12px;
+  font-weight: 500;
+}
+.content {
+  background: #7cf7e0;
+  display: inline-block;
+  padding: 7px;
+  border-radius: 7px;
+}
+.editor {
+  display: flex;
+}
+.login {
+  position: absolute;
+}
+.show {
+  visibility: visible;
+  opacity: 1;
+  transition: 0.4s;
+}
+.hiden {
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.4s;
+}
