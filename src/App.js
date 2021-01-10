@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { io } from "socket.io-client";
 // gọi điện cho server port 4000
 const ENDPOINT = "https://socketiosv.herokuapp.com/";
+// const ENDPOINT = "http://localhost:4000/";
 const socket = io(ENDPOINT, {
   transports: ["websocket"],
 });
@@ -19,6 +20,7 @@ socket.on("connect", () => {
 const App = (props) => {
   const [contents, setContents] = useState("");
   const [username, setUsername] = useState("");
+  const [passwold, setPasswold] = useState("");
   const [listuser, setListuser] = useState([]);
   const [lschat, setLschat] = useState([]);
 
@@ -32,7 +34,10 @@ const App = (props) => {
  
 
   const handleLogin = () => {
-    socket.emit("login", username);
+    socket.emit("login", username,passwold);
+  };
+  const handleSignUp = () => {
+    socket.emit("signup", username,passwold);
   };
   const handleClick = () => {
     socket.emit("sendmsg", contents, socket.Username);
@@ -44,6 +49,8 @@ const App = (props) => {
     socket.emit("logout");
     formlogin[0].classList.remove("hiden");
     formlogin[0].classList.add("show");
+    formlogin[1].classList.remove("hiden");
+    formlogin[1].classList.add("show");
     formhome[0].classList.remove("show");
     formhome[0].classList.add("hiden");
   }
@@ -53,6 +60,8 @@ const App = (props) => {
   socket.on("dktenthanhcong", (data) => {
     formlogin[0].classList.remove("show");
     formlogin[0].classList.add("hiden");
+    formlogin[1].classList.remove("show");
+    formlogin[1].classList.add("hiden");
     formhome[0].classList.remove("hiden");
     formhome[0].classList.add("show");
   });
@@ -72,9 +81,17 @@ const App = (props) => {
               <input
                 type="text"
                 className="form-control mb-3"
-                placeholder="name"
+                placeholder="username"
                 onChange={(e) => {
                   setUsername(e.target.value);
+                }}
+              />
+              <input
+                type="text"
+                className="form-control mb-3"
+                placeholder="passwold"
+                onChange={(e) => {
+                  setPasswold(e.target.value);
                 }}
               />
               <button
@@ -83,6 +100,36 @@ const App = (props) => {
                 onClick={handleLogin}
               >
                 login
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="login show">
+          <div className="row justify-content-center">
+            <div className="col-7">
+              <h3>SignUp</h3>
+              <input
+                type="text"
+                className="form-control mb-3"
+                placeholder="username"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+              />
+              <input
+                type="text"
+                className="form-control mb-3"
+                placeholder="passwold"
+                onChange={(e) => {
+                  setPasswold(e.target.value);
+                }}
+              />
+              <button
+                type="button"
+                className="btn btn-success "
+                onClick={handleSignUp}
+              >
+                SignUp
               </button>
             </div>
           </div>

@@ -58,7 +58,12 @@
 .editor {
   display: flex;
 }
-.login {
+.login:nth-child(1) {
+  position: absolute;
+  left: 200px;
+}
+.login:nth-child(2) {
+  right: 315px;
   position: absolute;
 }
 .show {
